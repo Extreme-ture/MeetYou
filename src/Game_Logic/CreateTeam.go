@@ -242,7 +242,7 @@ func GameEnd(ws *dataStruct.WSConnection,message []byte){
 		return
 	}
 	//conn.UpdateRow(ws.WhichUser.UserID,ws.WhichUser.Grade)
-	sendGrade(ws.WhichTeam,"gradecount")
+	sendGrade(ws.WhichTeam,"gameend")
 	grade := ws.WhichUser.CurrentGrade
 	switch {
 	case grade >= 80 :

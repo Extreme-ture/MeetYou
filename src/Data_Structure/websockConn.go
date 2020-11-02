@@ -122,6 +122,7 @@ type UserInfo struct {
 	UserID   string `json:"userid"`
 	ImageURL string `json:"imageurl"`
 	Rank     int    `json:"rank"`
+	Show     bool   `json:"show"`
 }
 
 func QuitTeam(ws *WSConnection){
@@ -135,6 +136,7 @@ func QuitTeam(ws *WSConnection){
 				UserID:   v.UserID,
 				ImageURL: v.ImageUrl,
 				Rank:     v.Grade,
+				Show:     v.Show,
 			}
 			i++
 		}
