@@ -21,12 +21,13 @@ type TeamInfo struct{
 }
 
 type UserInfo struct {
-	Path     string `json:"path"`
-	UserName string `json:"username"`
-	UserID   string `json:"userid"`
-	ImageURL string `json:"imageurl"`
-	Rank     int    `json:"rank"`
-	Show     bool   `json:"show"`
+	Path        string `json:"path"`
+	UserName    string `json:"username"`
+	UserID      string `json:"userid"`
+	ImageURL    string `json:"imageurl"`
+	Rank        int    `json:"rank"`
+	Show        bool   `json:"show"`
+	HouseOwner  bool    `json:"houseowner"`
 }
 
 type AllUserInfo struct {

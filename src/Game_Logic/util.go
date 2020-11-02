@@ -48,6 +48,7 @@ func sendGrade(ws *dataStruct.Team,path string){
 	var i int
 	for _,v := range ws.MemberGroup{
 		rgrade.Grade[i] = AddGrade{
+			ImageUrl: v.ImageUrl,
 			UserID:v.UserID,
 			UserName:v.UserName,
 			Grade:ws.GameGrade[v.UserID],

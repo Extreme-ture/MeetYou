@@ -118,16 +118,19 @@ func (ws *WSConnection)WSClose() {
 }
 
 type UserInfo struct {
-	UserName string `json:"username"`
-	UserID   string `json:"userid"`
-	ImageURL string `json:"imageurl"`
-	Rank     int    `json:"rank"`
-	Show     bool   `json:"show"`
+	UserName   string `json:"username"`
+	UserID     string `json:"userid"`
+	ImageURL   string `json:"imageurl"`
+	Rank       int    `json:"rank"`
+	Show       bool   `json:"show"`
+	HouseOwner bool   `json:"houseowner"`
 }
 
 func QuitTeam(ws *WSConnection){
 	if ws.WhichTeam != nil{
+		ws.WhichUser.CurrentGrade = 0
 		delete(ws.WhichTeam.MemberGroup,ws.WhichUser.UserID) //quit team
+		delete(ws.WhichTeam.GameGrade,ws.WhichUser.UserID)
 		userInfo := make([]UserInfo,5)
 		var i int
 		for _,v:=range ws.WhichTeam.MemberGroup{
@@ -137,10 +140,11 @@ func QuitTeam(ws *WSConnection){
 				ImageURL: v.ImageUrl,
 				Rank:     v.Grade,
 				Show:     v.Show,
+				HouseOwner: v.HouseOwner,
 			}
 			i++
 		}
-		data,err := json.Marshal(userInfo)
+		data,err := json.Marshal(userInfo[:i])
 		if err != nil{
 			log.Println(err)
 			return

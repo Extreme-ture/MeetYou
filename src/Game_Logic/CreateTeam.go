@@ -178,6 +178,7 @@ func QuitTeam(ws *dataStruct.WSConnection,message []byte){
 		return
 	}
 	dataStruct.AllUser[qi.UserID].WSConn.OutChan <- []byte(`{"path":"quitteam","message":"false"}`)
+	ws.WhichUser.CurrentGrade = 0
 	delete(ws.WhichTeam.MemberGroup,qi.UserID)
 	delete(ws.WhichTeam.GameGrade,qi.UserID)
 	//if the count of member equal to 0
@@ -195,6 +196,8 @@ func QuitTeam(ws *dataStruct.WSConnection,message []byte){
 				UserID:   v.UserID,
 				ImageURL: v.ImageUrl,
 				Rank:     v.Grade,
+				Show: 		v.Show,
+				HouseOwner: v.HouseOwner,
 			}
 			i++
 		}
