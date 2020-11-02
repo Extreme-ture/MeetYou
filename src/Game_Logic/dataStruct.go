@@ -26,6 +26,7 @@ type UserInfo struct {
 	UserID   string `json:"userid"`
 	ImageURL string `json:"imageurl"`
 	Rank     int    `json:"rank"`
+	Show     bool   `json:"show"`
 }
 
 type AllUserInfo struct {

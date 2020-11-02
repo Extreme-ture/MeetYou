@@ -80,6 +80,7 @@ func CreateTeamInfo(ws *dataStruct.WSConnection,message []byte){
 		GameGrade:       make(map[string]int,5),
 	}
 	team.MemberGroup[ws.WhichUser.UserID] = ws.WhichUser
+	ws.WhichUser.Show = true
 	ws.WhichUser.WhichTeam = team
 	ws.WhichTeam = team
 	dataStruct.AllTeam[team.TeamID] = team
@@ -124,6 +125,7 @@ func AddToTeam(ws *dataStruct.WSConnection,message []byte){
 	var i int
 	for _,v:=range ws.WhichTeam.MemberGroup{
 		userInfo[i] = UserInfo{
+			Show:     v.Show,
 			UserName: v.UserName,
 			UserID:   v.UserID,
 			ImageURL: v.ImageUrl,
@@ -294,9 +296,7 @@ func GradeCount(ws *dataStruct.WSConnection,message []byte){
 	ws.WhichTeam.GameGrade[ws.WhichUser.UserID] = ws.WhichUser.CurrentGrade
 
 	if !ws.WhichTeam.SendGrade {
-		ws.WhichTeam.Mutex.Lock()
 		ws.WhichTeam.SendGrade = true
-		ws.WhichTeam.Mutex.Unlock()
 		sendGrade(ws.WhichTeam,"gradecount")
 	}
 }
@@ -311,11 +311,29 @@ func GameContinue(ws *dataStruct.WSConnection,message []byte){
 		return
 	}
 	ws.WhichUser.Show = true
-	for _,value := range ws.WhichTeam.MemberGroup{
-		SendSubject(value.WSConn,SubjectInfo{
-			Path: "gamestart",
-			UserID:  "",
-			Subject: ws.WhichTeam.Subjects,
-		})
+	userInfo := make([]UserInfo,5)
+	var i int
+	for _,v:=range ws.WhichTeam.MemberGroup{
+		userInfo[i] = UserInfo{
+			Show:     v.Show,
+			UserName: v.UserName,
+			UserID:   v.UserID,
+			ImageURL: v.ImageUrl,
+			Rank:     v.Grade,
+		}
+		i++
+	}
+	allUser := AllUserInfo{
+		Path: "gamecontinue",
+		Message: true,
+		AllUser: userInfo[:i],
+	}
+	data,err := json.Marshal(allUser)
+	if err != nil{
+		log.Println(err)
+		return
+	}
+	for _,v := range ws.WhichTeam.MemberGroup{
+		v.WSConn.OutChan <- data
 	}
 }
