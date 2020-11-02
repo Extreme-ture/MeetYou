@@ -1,0 +1,13 @@
+2020/10/28 02:14:39 connection.go:38: Open MySql Success
+2020/10/28 02:43:48 connection.go:38: Open MySql Success
+2020/10/28 03:09:40 connection.go:38: Open MySql Success
+2020/10/28 03:24:37 connection.go:38: Open MySql Success
+2020/10/29 19:31:39 connection.go:38: Open MySql Success
+2020/10/29 20:10:16 CreateTeam.go:151: illegal information
+2020/10/30 08:51:17 CreateTeam.go:151: illegal information
+2020/10/30 08:51:22 CreateTeam.go:151: illegal information
+2020/10/30 08:54:29 CreateTeam.go:151: illegal information
+2020/10/30 08:56:36 CreateTeam.go:151: illegal information
+2020/10/30 08:58:10 CreateTeam.go:151: illegal information
+2020/10/30 09:00:27 CreateTeam.go:151: illegal information
+2020/10/30 09:01:55 CreateTeam.go:151: illegal information
